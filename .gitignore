@@ -4,7 +4,7 @@ __pycache__/
 .venv/
 venv/
 # Private/local project files
-AGENTS.py
+AGENTS.md
 *.docx
 # Downloaded data
 data/raw/*
@@ -20,3 +20,6 @@ artifacts/predictions/*
 !artifacts/predictions/.gitkeep
 artifacts/figures/*
 !artifacts/figures/.gitkeep
+PROJECT_STRUCTURE.md
+.gitignore
+
