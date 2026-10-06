@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+# Private/local project files
+AGENTS.py
+*.docx
+# Downloaded data
+data/raw/*
+!data/raw/.gitkeep
+data/splits/*
+!data/splits/.gitkeep
+# Generated artifacts
+artifacts/checkpoints/*
+!artifacts/checkpoints/.gitkeep
+artifacts/logs/*
+!artifacts/logs/.gitkeep
+artifacts/predictions/*
+!artifacts/predictions/.gitkeep
+artifacts/figures/*
+!artifacts/figures/.gitkeep

@@ -1,0 +1,38 @@
+ConvNeXtiny_vs_ResNet18_A_Comparative_Study_on_CIFAR10_Classification/
+│
+├── configs/
+│   └── default.json                 # Cấu hình chung: seed, batch size, số epoch,
+│                                    # learning rate, input size và thư mục lưu kết quả
+│
+├── src/
+│   └── cifar_compare/
+│       ├── __init__.py              # Đánh dấu cifar_compare là một Python package
+│       ├── data.py                  # Tải CIFAR-10, chia train/validation,
+│       │                            # tạo transforms và DataLoader
+│       ├── models.py                # Khởi tạo ConvNeXt-Tiny hoặc ResNet18 pretrained,
+│       │                            # thay classifier cuối thành 10 lớp
+│       ├── train.py                 # Huấn luyện model, theo dõi validation
+│       │                            # và lưu checkpoint tốt nhất
+│       ├── evaluate.py              # Đánh giá checkpoint trên test set:
+│       │                            # accuracy, macro-F1 và confusion matrix
+│       ├── profiling.py             # Đo số tham số, FLOPs và thời gian suy luận
+│       ├── visualize.py             # Vẽ learning curves, confusion matrix
+│       │                            # và ảnh phân loại sai
+│       └── utils.py                 # Hàm dùng chung: đặt seed, đọc cấu hình,
+│                                    # lưu log và tiện ích khác
+│
+├── artifacts/
+│   ├── checkpoints/                 # Lưu trọng số model đã huấn luyện
+│   ├── logs/                        # Lưu cấu hình thực tế và metrics theo epoch
+│   ├── predictions/                 # Lưu dự đoán trên test set để phân tích lỗi
+│   └── figures/                     # Lưu biểu đồ và hình ảnh kết quả
+│
+├── reports/
+│   └── .gitkeep                     # Giữ thư mục này trong Git; dùng để lưu
+│                                    # bảng và tài liệu báo cáo sau này
+│
+├── .gitignore                       # Loại dữ liệu tải về, checkpoint và file tạm
+│                                    # khỏi Git nếu không cần chia sẻ
+├── requirements.txt                 # Danh sách thư viện Python cần cài
+└── README.md                        # Giới thiệu project, hướng dẫn cài đặt
+                                     # và các lệnh chạy

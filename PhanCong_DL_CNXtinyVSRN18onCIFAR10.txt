@@ -1,0 +1,17 @@
+PHÚC: 
+- xây model factory và training loop.
+-Chạy hai mô hình trên máy, lưu log và checkpoint.
+- Chốt cấu hình chung, tích hợp code,
+	FILE liên quan: models.py, train.py, configs/default.json; checkpoint và log từng run (dự kiến tại thầy chưa đưa mẫu báo cáo)
+
+
+Khang:
+ -Xây pipeline CIFAR-10: split train/validation, transforms, DataLoader
+ -Viết phần phương pháp dữ liệu và giải thích nền tảng ConvNet/ConvNeXt.
+	-FILE liên quan: data.py; phần lý thuyết và preprocessing trong báo cáo (dự kiến tại thầy chưa đưa mẫu báo cáo)
+
+
+QUY:
+ -Viết phần đánh giá, confusion matrix,phân tích ảnh phân loại sai
+ -đo latency/FLOPs theo giao thức đã thống nhất; tổng hợp bảng kết quả.
+	FILE liên quan: evaluate.py, profiling.py, visualize.py; phần kết quả và nhận xét (dự kiến tại thầy chưa đưa mẫu báo cáo)
