@@ -10,9 +10,7 @@ Project nghiên cứu ConvNeXt như một ConvNet hiện đại, sau đó fine-t
 
 ```text
 project-root/
-├── AGENTS.md
 ├── README.md
-├── PROJECT_STRUCTURE.md
 ├── requirements.txt
 ├── .gitignore
 ├── configs/
@@ -42,9 +40,7 @@ project-root/
 
 | File/thư mục | Vai trò | Hướng dẫn thực hiện |
 |---|---|---|
-| `AGENTS.md` | Bộ nhớ project cho Codex và người đóng góp. | Đọc trước khi sửa project. Cập nhật file này cùng lượt khi thêm, sửa, đổi tên hoặc xóa thành phần hay khi trạng thái/pipeline đổi. |
 | `README.md` | Điểm vào để hiểu mục tiêu, trạng thái và cách đi tiếp. | Giữ hướng dẫn chạy khớp với code thực tế; chưa ghi lệnh train/evaluate là khả dụng trước khi triển khai. |
-| `PROJECT_STRUCTURE.md` | Giải thích scaffold chi tiết và thứ tự code đề xuất. | Cập nhật khi cấu trúc hoặc vai trò module thay đổi. |
 | `requirements.txt` | Danh sách thư viện Python và phiên bản. | Chọn và pin phiên bản sau khi chốt môi trường PyTorch/torchvision; hiện chưa có dependency thực sự. |
 | `.gitignore` | Bỏ qua cache Python, `AGENTS.py`, mọi file `.docx`, dữ liệu tải về và artifacts lớn. | Các tài liệu Word và file `AGENTS.py` không được thêm mới vào Git; file dữ liệu/checkpoint lớn cũng được bỏ qua. |
 | `configs/default.json` | Cấu hình thí nghiệm: seed, split, weights, input size, transforms, optimizer, epochs, paths và profiling. | Điền các lựa chọn sau khi chốt protocol; lưu config thực tế bên cạnh mỗi run để tái lập. |
