@@ -1,1 +1,5 @@
-# Dependencies have not been selected or installed yet.
+﻿# Chon CUDA-enabled PyTorch build tu trang chinh thuc truoc khi cai requirements nay.
+torch>=2.7
+torchvision>=0.22
+numpy>=1.26
+scikit-learn>=1.5
