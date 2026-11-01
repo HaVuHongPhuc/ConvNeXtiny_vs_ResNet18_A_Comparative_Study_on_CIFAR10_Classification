@@ -1,1 +1,25 @@
-{}
+﻿{
+  "seed": 42,
+  "model": "convnext_tiny",
+  "weights": "IMAGENET1K_V1",
+  "pretrained": true,
+  "freeze_backbone": false,
+  "num_classes": 10,
+  "data_root": "data/raw",
+  "split_path": "data/splits/split_indices.json",
+  "val_size": 5000,
+  "input_size": 224,
+  "batch_size": 32,
+  "num_workers": 4,
+  "epochs": 10,
+  "learning_rate": 0.0001,
+  "head_learning_rate": 0.001,
+  "weight_decay": 0.05,
+  "scheduler": "cosine",
+  "amp": true,
+  "early_stopping_patience": 5,
+  "deterministic": false,
+  "device": "auto",
+  "output_dir": "artifacts",
+  "run_name": null
+}

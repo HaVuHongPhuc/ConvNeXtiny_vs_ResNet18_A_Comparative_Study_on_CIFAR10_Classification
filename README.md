@@ -4,8 +4,7 @@ Project nghiên cứu ConvNeXt như một ConvNet hiện đại, sau đó fine-t
 
 ## Trạng thái hiện tại
 
-Đã có tài liệu lý thuyết, đặc tả pipeline và scaffold thư mục. Các file Python trong `src/cifar_compare/` hiện chỉ có comment hướng dẫn, chưa có logic thực thi. Chưa tải CIFAR-10, chưa cài/pin dependency, chưa huấn luyện model và chưa có kết quả thực nghiệm. `configs/default.json` hiện là `{}`.
-
+data.py có pipeline dữ liệu; models.py và train.py đã có model factory/training loop; utils.py có helper config, seed và device. evaluate.py, profiling.py, visualize.py vẫn là placeholder. Chưa chạy training và chưa có checkpoint/kết quả.
 ## Cấu trúc project và vai trò
 
 ```text
@@ -81,7 +80,7 @@ project-root/
 7. **Hoàn thiện `visualize.py`:** tạo đường cong học tập, confusion matrices và ví dụ phân loại sai.
 8. **Hoàn thiện báo cáo và hướng dẫn chạy:** cập nhật README bằng lệnh thực tế, versions, config, kết quả và limitations sau khi code đã được xác minh.
 
-Các bước trên là kế hoạch, chưa được triển khai. Không có lệnh train/evaluate khả dụng cho đến khi các module Python có logic thực thi.
+Đến 2026-11-01, data.py, models.py, utils.py và training loop trong train.py đã được triển khai. Các phase đánh giá cuối, profiling và trực quan hóa vẫn chưa xong. Lệnh train dự kiến được ghi ở phần Model factory và training loop bên dưới; chưa chạy trong phiên này.
 
 ## Nguyên tắc đánh giá
 
@@ -97,3 +96,19 @@ Các bước trên là kế hoạch, chưa được triển khai. Không có l�
 - `02_Nen_tang_ly_thuyet_ConvNet.docx`: nền tảng ConvNet.
 - `03_ConvNeXt_nhu_mot_ConvNet_hien_dai.docx`: tổng hợp kiến trúc và liên hệ CIFAR-10.
 - `04_Dac_ta_project_va_pipeline_CIFAR10.docx`: đặc tả project theo phase.
+
+## Model factory và training loop
+
+- models.py tạo ConvNeXt-Tiny hoặc ResNet18 bằng weights enum cụ thể, thay head thành 10 logits và hỗ trợ đóng băng backbone.
+- train.py dùng một loop chung, AdamW với learning rate riêng cho backbone/head, validation theo epoch, cosine scheduler, AMP khi chạy CUDA, early stopping và lưu best.pt/last.pt.
+- utils.py đọc JSON, đặt seed và chọn device. default.json chứa cấu hình khởi đầu có thể chỉnh.
+- Training chỉ dùng train/validation để cập nhật model và chọn checkpoint. Test set không dùng trong training.
+- Lệnh dự kiến từ thư mục gốc, sau khi môi trường đã sẵn sàng:
+  - python -m src.cifar_compare.train --model resnet18
+  - python -m src.cifar_compare.train --model convnext_tiny
+- Chưa chạy các lệnh này. Chúng có thể tải CIFAR-10/pretrained weights và bắt đầu huấn luyện; chỉ chạy khi nhóm sẵn sàng.
+- Cài torch/torchvision theo đúng CUDA từ trang chính thức: https://pytorch.org/get-started/locally/
+
+## Notebook kiểm tra
+
+Mở notebooks/01_Kiem_tra_model_factory_va_training.ipynb từ thư mục gốc và chạy từng cell. Notebook kiểm tra môi trường/GPU, pretrained model forward và một epoch training smoke với dữ liệu giả. Tải CIFAR-10 và training thật mặc định tắt; chỉ bật các cờ trong notebook khi đã sẵn sàng.
