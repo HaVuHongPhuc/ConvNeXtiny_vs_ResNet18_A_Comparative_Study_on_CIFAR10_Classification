@@ -4,7 +4,7 @@ Project nghiên cứu ConvNeXt như một ConvNet hiện đại, sau đó fine-t
 
 ## Trạng thái hiện tại
 
-Cập nhật 09/11/2026: data.py có pipeline dữ liệu; models.py và train.py có model factory/training loop; utils.py có helper config, seed và device. Notebook đã xác nhận forward pretrained của cả hai model và smoke training ResNet18 trên dữ liệu giả. CIFAR-10 đã tải/giải nén đủ, MD5 khớp; số mẫu, phân bố lớp, split và một batch train thật đã đạt với num_workers=0. Notebook 01 đã kiểm chứng batch cả ba loader, dtype/class order và chính sách validation/test với 224/32/worker=0. Ngày 09/11, Phúc cung cấp thêm ảnh output PASS của một batch ở cả ba loader với cấu hình chính thức 224/32/worker=4; nếu thay cấu hình về sau cần kiểm chứng lại. Chưa có kết quả training thật. evaluate.py, profiling.py, visualize.py vẫn là placeholder.
+Cập nhật 09/11/2026: data.py có pipeline dữ liệu; models.py và train.py có model factory/training loop; utils.py có helper config, seed và device. Notebook đã xác nhận forward pretrained của cả hai model và smoke training ResNet18 trên dữ liệu giả. CIFAR-10 đã tải/giải nén đủ, MD5 khớp; số mẫu, phân bố lớp, split và một batch train thật đã đạt với num_workers=0. Notebook 01 đã kiểm chứng batch cả ba loader, dtype/class order và chính sách validation/test với 224/32/worker=0. Ngày 09/11, Phúc cung cấp thêm ảnh output PASS của một batch ở cả ba loader với cấu hình chính thức 224/32/worker=4; nếu thay cấu hình về sau cần kiểm chứng lại. Notebook 03 đã train thử cả hai pretrained model một epoch trên 200 train/100 validation và nạp lại checkpoint thành công; chưa có run trên đầy đủ split để báo cáo. evaluate.py, profiling.py, visualize.py vẫn là placeholder.
 
 Theo dõi việc đã làm, việc còn thiếu và ai cần chờ ai tại [checklist.md](checklist.md). Theo [file phân công chính thức](PhanCong_DL_CNXtinyVSRN18onCIFAR10.txt): **Phúc** phụ trách model/training, chạy GPU, cấu hình và tích hợp; **Khang** phụ trách dữ liệu/lý thuyết; **Quy** phụ trách đánh giá, profiling, trực quan hóa và tổng hợp kết quả.
 ## Cấu trúc project và vai trò
@@ -18,7 +18,8 @@ project-root/
 ├── .gitignore
 ├── notebooks/
 │   ├── 01_Kiem_tra_DataLoader_CIFAR10.ipynb
-│   └── 02_Kiem_tra_model_factory_va_training.ipynb
+│   ├── 02_Kiem_tra_model_factory_va_training.ipynb
+│   └── 03_Kiem_tra_backward_training_CIFAR10_va_checkpoint.ipynb
 ├── configs/
 │   └── default.json
 ├── data/
@@ -196,3 +197,17 @@ $projectPythonLongPath = '\\?\' + (Resolve-Path '.\.venv-1\Scripts\python.exe').
 Ghi chú này xác nhận môi trường Python/GPU đã qua kiểm tra; các thí nghiệm CIFAR-10 và notebook smoke cũ có trạng thái riêng trong checklist.
 
 **Cập nhật 09/11/2026 — cấu hình DataLoader chính thức:** ảnh output Phúc cung cấp xác nhận `input_size=224`, `batch_size=32`, `num_workers=4` đã đọc được một batch từ cả train, validation và test, đều PASS. Mục kiểm chứng cấu hình chính thức trong checklist đã hoàn thành; chưa có phép đo tốc độ hoặc duyệt mọi batch. Bản notebook 01 trên đĩa tại thời điểm rà soát vẫn chỉ có các cell baseline, nên cần Ctrl+S để lưu cell `official_config` và output mới.
+
+## Notebook 03 — Backward, CIFAR-10 nhỏ và checkpoint
+
+Mở [03_Kiem_tra_backward_training_CIFAR10_va_checkpoint.ipynb](notebooks/03_Kiem_tra_backward_training_CIFAR10_va_checkpoint.ipynb), chọn kernel `.venv-1`, rồi chạy từng cell từ trên xuống. Notebook độc lập về biến với notebook 01/02, có giải thích trước mỗi bước.
+
+- Phần A: forward/loss/backward/optimizer step của ConvNeXt-Tiny pretrained, dùng hai tensor giả FP32. Assert gradient hữu hạn, gradient khác 0 và backbone/classifier được theo dõi có cập nhật trọng số.
+- Phần B: chọn cùng 200 train/100 validation cân bằng 10 lớp từ split đã lưu, chạy từng pretrained model một epoch bằng train_model của project. Input224/batch32/worker0, AMP theo config/CUDA. Cấu hình và DataLoader dùng chung smoke_config; manifest lưu indices gốc.
+- Phần C: dựng model pretrained=False, nạp checkpoint strict=True, xác nhận metadata/class order, tính validation lại so với log và kiểm tra logits qua lưu–nạp state_dict bằng bộ đệm RAM với cùng batch eval/FP32.
+
+**Đã chạy thành công ngày 09/11/2026:** 19 cell, trong đó 9 cell code; kết thúc bằng PASS A/B/C. Cả hai model nạp lại cho validation khớp log; logits roundtrip max abs diff 0.0 ở lần kiểm chứng đã lưu. Output đã có trong notebook.
+
+Checkpoints/logs và indices đặt dưới `artifacts/notebook_smoke/cifar_subset/`, được Git bỏ qua. Bằng chứng: [artifacts/notebook_smoke/cifar_subset/checks/20261109_004702_079834/verification_results.json](artifacts/notebook_smoke/cifar_subset/checks/20261109_004702_079834/verification_results.json). Mỗi lần chạy tạo run group mới, có thể dùng thêm dung lượng checkpoint; không ghi đè run trước.
+
+Notebook tạo các run ngắn để kiểm chứng luồng code. Accuracy từ 200/100 ảnh chưa dùng để kết luận so sánh; training đầy đủ, test evaluation, profiling và kiểm tra resume là các việc riêng. Việc chốt protocol cuối vẫn do Phúc phối hợp Khang/Quy.
