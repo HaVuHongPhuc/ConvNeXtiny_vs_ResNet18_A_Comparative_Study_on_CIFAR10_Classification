@@ -1,6 +1,6 @@
 PHÚC: 
 - xây model factory và training loop.
--Chạy hai mô hình trên máy, lưu log và checkpoint.
+- Chạy hai mô hình trên máy, lưu log và checkpoint.
 - Chốt cấu hình chung, tích hợp code,
 	FILE liên quan: models.py, train.py, configs/default.json; checkpoint và log từng run (dự kiến tại thầy chưa đưa mẫu báo cáo)
 
