@@ -12,6 +12,7 @@
 # 3. Hiển thị ảnh sai kèm nhãn thật, nhãn dự đoán và confidence.
 # 4. Lưu hình vào artifacts/figures/ để báo cáo có thể tái tạo.
 
+# MODULE: visualize.py
 import csv
 import json
 from pathlib import Path
@@ -22,12 +23,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 from torchvision import datasets
 
-from .data import build_transforms, denormalize
+if __package__ in (None, ""):
+    import sys
 
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+    from src.cifar_compare.data import build_transforms, denormalize
+else:
+    from .data import build_transforms, denormalize
 
-# ---------------------------------------------------------------------------
-# Helpers
-# ---------------------------------------------------------------------------
 
 def _load_test_metrics(run_name, output_dir="artifacts"):
     path = Path(output_dir) / "logs" / run_name / "test_metrics.json"
@@ -57,10 +60,6 @@ def _title_with_conditions(base, metrics, summary):
         parts.append(f"macro-F1={metrics['macro_f1']:.4f}")
     return " | ".join(parts)
 
-
-# ---------------------------------------------------------------------------
-# 1. Learning curves
-# ---------------------------------------------------------------------------
 
 def plot_learning_curves(run_name, output_dir="artifacts"):
     metrics_path = Path(output_dir) / "logs" / run_name / "metrics.csv"
@@ -107,15 +106,7 @@ def plot_learning_curves(run_name, output_dir="artifacts"):
     return str(out)
 
 
-# ---------------------------------------------------------------------------
-# 2. Confusion matrix
-# ---------------------------------------------------------------------------
-
 def plot_confusion_matrix(run_name, output_dir="artifacts", normalize=False):
-    """
-    normalize=True: chia mỗi hàng cho tổng hàng (per-class recall).
-    normalize=False: hiển thị count.
-    """
     pred_dir = Path(output_dir) / "predictions" / run_name
     cm = np.load(pred_dir / "confusion_matrix.npy")
     data = np.load(pred_dir / "test_predictions.npz", allow_pickle=True)
@@ -167,18 +158,10 @@ def plot_confusion_matrix(run_name, output_dir="artifacts", normalize=False):
     return str(out)
 
 
-# ---------------------------------------------------------------------------
-# 3. Ảnh phân loại sai
-# ---------------------------------------------------------------------------
-
 def plot_misclassified(run_name, config, output_dir="artifacts",
                        num_images=16, criterion="top_conf"):
-    """
-    criterion:
-      - "top_conf": confidence cao nhất (model tự tin nhưng sai) — mặc định
-      - "random"  : chọn ngẫu nhiên
-    """
     pred_dir = Path(output_dir) / "predictions" / run_name
+    metrics = _load_test_metrics(run_name, output_dir)
     data = np.load(pred_dir / "test_predictions.npz", allow_pickle=True)
     indices = data["indices"]
     true_labels = data["true_labels"]
@@ -203,7 +186,8 @@ def plot_misclassified(run_name, config, output_dir="artifacts",
         selected = wrong_pos[order[:take]]
         order_desc = "confidence cao nhất"
 
-    eval_tf = build_transforms(config.get("input_size", 224))[1]
+    input_size = metrics.get("input_size", config.get("input_size", 224))
+    eval_tf = build_transforms(input_size)[1]
     test_tf = datasets.CIFAR10(config.get("data_root", "data/raw"),
                                train=False, download=False, transform=eval_tf)
 
@@ -229,7 +213,6 @@ def plot_misclassified(run_name, config, output_dir="artifacts",
             fontsize=8, color="red",
         )
 
-    metrics = _load_test_metrics(run_name, output_dir)
     summary = _load_summary(run_name, output_dir)
     base = (f"{run_name} — Top {n} misclassified ({order_desc})\n"
             f"Split: CIFAR-10 official test (10.000 mẫu)")
@@ -244,10 +227,6 @@ def plot_misclassified(run_name, config, output_dir="artifacts",
     print(f"[visualize] Misclassified -> {out}")
     return str(out)
 
-
-# ---------------------------------------------------------------------------
-# 4. Per-class F1 (bonus cho báo cáo)
-# ---------------------------------------------------------------------------
 
 def plot_per_class_f1(run_name, output_dir="artifacts"):
     metrics = _load_test_metrics(run_name, output_dir)
@@ -282,12 +261,7 @@ def plot_per_class_f1(run_name, output_dir="artifacts"):
     return str(out)
 
 
-# ---------------------------------------------------------------------------
-# Entry point
-# ---------------------------------------------------------------------------
-
 def visualize_all(run_name, config):
-    """Chạy toàn bộ visualize cho một run. Không đụng vào training."""
     output_dir = config.get("output_dir", "artifacts")
     results = {
         "learning_curves": plot_learning_curves(run_name, output_dir),
@@ -309,3 +283,18 @@ def visualize_all(run_name, config):
         json.dump(manifest, f, ensure_ascii=False, indent=2)
     print(f"[visualize] Manifest -> {mpath}")
     return results
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="Create plots from saved training and evaluation artifacts"
+    )
+    parser.add_argument("--run", required=True,
+                        help="Run name, e.g. resnet18")
+    parser.add_argument("--config", default="configs/default.json")
+    args = parser.parse_args()
+
+    with open(args.config, "r", encoding="utf-8-sig") as f:
+        _cfg = json.load(f)
+    visualize_all(args.run, _cfg)
