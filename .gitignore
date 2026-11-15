@@ -20,8 +20,14 @@ artifacts/predictions/*
 !artifacts/predictions/.gitkeep
 artifacts/figures/*
 !artifacts/figures/.gitkeep
+artifacts/profiling/*
+!artifacts/profiling/.gitkeep
 PROJECT_STRUCTURE.md
 .gitignore
 artifacts/notebook_smoke/
 checklist.md
 thutuchay.md
+
+# Bổ sung — không đụng rule cũ
+.ipynb_checkpoints/
+*.egg-info/

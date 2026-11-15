@@ -10,6 +10,7 @@
 # 4. Lặp nhiều lần, báo cách tổng hợp và nói rõ có tính data loading không.
 # Không xem FLOPs/MACs là thay thế cho latency thực tế.
 
+# MODULE: profiling.py
 import json
 import time
 from datetime import datetime
@@ -19,11 +20,17 @@ import numpy as np
 import torch
 import torchvision
 
-from .models import build_model, count_parameters
-from .utils import resolve_device
+if __package__ in (None, ""):
+    import sys
+
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+    from src.cifar_compare.models import build_model, count_parameters
+    from src.cifar_compare.utils import resolve_device
+else:
+    from .models import build_model, count_parameters
+    from .utils import resolve_device
 
 
-# FLOPs tham chiếu từ torchvision classification_table (ImageNet-1K, 224×224, batch=1)
 TORCHVISION_FLOPS = {
     "convnext_tiny": 4.46,
     "resnet18": 1.81,
@@ -36,13 +43,11 @@ TORCHVISION_PARAMS = {
 
 def measure_latency(model, input_size, batch_size, device,
                     warmup=20, repeats=100, dtype=torch.float32):
-    """Đo latency forward pass, trả về mean/std/p50/p95/p99 (ms)."""
     model.eval()
     dummy = torch.randn(batch_size, 3, input_size, input_size,
                         device=device, dtype=dtype)
 
     with torch.no_grad():
-        # Warm-up
         for _ in range(warmup):
             model(dummy)
         if device.type == "cuda":
@@ -77,7 +82,6 @@ def measure_latency(model, input_size, batch_size, device,
 
 def measure_peak_memory(model, input_size, batch_size, device,
                         dtype=torch.float32):
-    """Đo peak CUDA memory khi forward (chỉ CUDA)."""
     if device.type != "cuda":
         return None
     model.eval()
@@ -93,7 +97,6 @@ def measure_peak_memory(model, input_size, batch_size, device,
 
 
 def profile_model(model_name, config, device=None, dtype=torch.float32):
-    """Đo đầy đủ cho một model, trả về dict kết quả và lưu JSON."""
     device = device or resolve_device(config.get("device", "auto"))
     input_size = int(config.get("input_size", 224))
     batch_size = int(config.get("batch_size", 32))
@@ -128,12 +131,8 @@ def profile_model(model_name, config, device=None, dtype=torch.float32):
         "torch_version": torch.__version__,
         "torchvision_version": torchvision.__version__,
         "timestamp": datetime.now().isoformat(timespec="seconds"),
-
-        # Params
         "params_m": TORCHVISION_PARAMS.get(model_name),
         "params_total_actual": int(count_parameters(model)),
-
-        # FLOPs — định nghĩa rõ ràng
         "flops_gflops": TORCHVISION_FLOPS.get(model_name),
         "flops_definition": {
             "source": "torchvision classification_table (ImageNet-1K)",
@@ -143,8 +142,6 @@ def profile_model(model_name, config, device=None, dtype=torch.float32):
                           "torchvision, không đo trực tiếp trên model đã thay head 10 lớp.",
             "note": "FLOPs của head 10 lớp khác không đáng kể so với backbone.",
         },
-
-        # Latency — cách tổng hợp + phạm vi
         "latency": latency,
         "throughput_samples_per_sec": float(batch_size / (latency["mean_ms"] / 1000)),
         "latency_aggregation": (
@@ -154,22 +151,17 @@ def profile_model(model_name, config, device=None, dtype=torch.float32):
         ),
         "latency_scope": "Chỉ forward pass của model, không gồm data loading, "
                          "không gồm khởi tạo model.",
-
-        # Memory
         "peak_memory_mb": peak_mb,
         "peak_memory_scope": (
             "CUDA max_memory_allocated sau reset_peak_memory_stats, "
             "chỉ áp dụng khi device là CUDA."
         ) if peak_mb is not None else None,
-
-        # Backend state
         "cudnn_benchmark": (torch.backends.cudnn.benchmark
                             if device.type == "cuda" else None),
         "tf32_matmul": (torch.backends.cuda.matmul.allow_tf32
                         if device.type == "cuda" else None),
         "tf32_cudnn": (torch.backends.cudnn.allow_tf32
                        if device.type == "cuda" else None),
-
         "note": "FLOPs là giá trị tham chiếu, KHÔNG thay thế latency thực tế. "
                 "Luôn báo cả hai khi so sánh mô hình.",
     }
@@ -193,7 +185,6 @@ def profile_model(model_name, config, device=None, dtype=torch.float32):
 
 
 def run_all_profiling(config):
-    """Chạy profiling cho cả hai model với cùng protocol, lưu summary."""
     results = {}
     for name in ("resnet18", "convnext_tiny"):
         results[name] = profile_model(name, config)
@@ -217,3 +208,22 @@ def run_all_profiling(config):
         json.dump(summary, f, ensure_ascii=False, indent=2)
     print(f"[profiling] Summary -> {out_dir / 'summary.json'}")
     return results
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="Measure parameters, FLOPs, and latency for CIFAR-10 models"
+    )
+    parser.add_argument("--config", default="configs/default.json")
+    parser.add_argument("--model", choices=["resnet18", "convnext_tiny", "all"],
+                        default="all")
+    args = parser.parse_args()
+
+    with open(args.config, "r", encoding="utf-8-sig") as f:
+        _cfg = json.load(f)
+
+    if args.model == "all":
+        run_all_profiling(_cfg)
+    else:
+        profile_model(args.model, _cfg)
