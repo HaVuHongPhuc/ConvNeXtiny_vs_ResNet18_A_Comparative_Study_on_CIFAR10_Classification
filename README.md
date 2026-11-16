@@ -6,13 +6,14 @@ Project nghiên cứu ConvNeXt như một ConvNet hiện đại, sau đó fine-t
 
 Cập nhật 09/11/2026: data.py có pipeline dữ liệu; models.py và train.py có model factory/training loop; utils.py có helper config, seed và device. Notebook đã xác nhận forward pretrained của cả hai model và smoke training ResNet18 trên dữ liệu giả. CIFAR-10 đã tải/giải nén đủ, MD5 khớp; số mẫu, phân bố lớp, split và một batch train thật đã đạt với num_workers=0. Notebook 01 đã kiểm chứng batch cả ba loader, dtype/class order và chính sách validation/test với 224/32/worker=0. Ngày 09/11, Phúc cung cấp thêm ảnh output PASS của một batch ở cả ba loader với cấu hình chính thức 224/32/worker=4; nếu thay cấu hình về sau cần kiểm chứng lại. Notebook 03 đã train thử cả hai pretrained model một epoch trên 200 train/100 validation và nạp lại checkpoint thành công; chưa có run trên đầy đủ split để báo cáo. evaluate.py, profiling.py, visualize.py vẫn là placeholder.
 
-Theo dõi việc đã làm, việc còn thiếu và ai cần chờ ai tại [checklist.md](checklist.md). Theo [file phân công chính thức](PhanCong_DL_CNXtinyVSRN18onCIFAR10.txt): **Phúc** phụ trách model/training, chạy GPU, cấu hình và tích hợp; **Khang** phụ trách dữ liệu/lý thuyết; **Quy** phụ trách đánh giá, profiling, trực quan hóa và tổng hợp kết quả.
+Kế hoạch riêng của Phúc, chia nhỏ theo thứ tự thực hiện và ghi rõ đầu vào cần chờ: [tasks.md](tasks.md). Theo dõi trạng thái toàn project và các phụ thuộc tại [checklist.md](checklist.md). Theo [file phân công chính thức](PhanCong_DL_CNXtinyVSRN18onCIFAR10.txt): **Phúc** phụ trách model/training, chạy GPU, cấu hình và tích hợp; **Khang** phụ trách dữ liệu/lý thuyết; **Quy** phụ trách đánh giá, profiling, trực quan hóa và tổng hợp kết quả.
 ## Cấu trúc project và vai trò
 
 ```text
 project-root/
 ├── README.md
 ├── checklist.md
+├── tasks.md
 ├── PhanCong_DL_CNXtinyVSRN18onCIFAR10.txt
 ├── requirements.txt
 ├── .gitignore
@@ -208,6 +209,14 @@ Mở [03_Kiem_tra_backward_training_CIFAR10_va_checkpoint.ipynb](notebooks/03_Ki
 
 **Đã chạy thành công ngày 09/11/2026:** 19 cell, trong đó 9 cell code; kết thúc bằng PASS A/B/C. Cả hai model nạp lại cho validation khớp log; logits roundtrip max abs diff 0.0 ở lần kiểm chứng đã lưu. Output đã có trong notebook.
 
-Checkpoints/logs và indices đặt dưới `artifacts/notebook_smoke/cifar_subset/`, được Git bỏ qua. Bằng chứng: [artifacts/notebook_smoke/cifar_subset/checks/20261109_004702_079834/verification_results.json](artifacts/notebook_smoke/cifar_subset/checks/20261109_004702_079834/verification_results.json). Mỗi lần chạy tạo run group mới, có thể dùng thêm dung lượng checkpoint; không ghi đè run trước.
+Checkpoints/logs và indices đặt dưới `artifacts/notebook_smoke/cifar_subset/`, được Git bỏ qua. Bằng chứng: [artifacts/notebook_smoke/cifar_subset/checks/20261109_005858_994753/verification_results.json](artifacts/notebook_smoke/cifar_subset/checks/20261109_005858_994753/verification_results.json). Mỗi lần chạy tạo run group mới, có thể dùng thêm dung lượng checkpoint; không ghi đè run trước.
 
 Notebook tạo các run ngắn để kiểm chứng luồng code. Accuracy từ 200/100 ảnh chưa dùng để kết luận so sánh; training đầy đủ, test evaluation, profiling và kiểm tra resume là các việc riêng. Việc chốt protocol cuối vẫn do Phúc phối hợp Khang/Quy.
+
+**Xác nhận lần Phúc tự chạy ngày 09/11/2026:** notebook 03, run `20261109_005858_994753`, hoàn tất cả 9 cell code không lỗi. Backward/update, training nhỏ hai pretrained model, nạp checkpoint và so sánh logits đều đạt; bằng chứng M1/T1/T2/T3 đã trỏ tới run này. Việc chốt protocol nhóm và training/đánh giá đầy đủ vẫn còn.
+
+## Bản báo cáo theo mẫu giảng viên
+
+Đã nhận bản [BÁO CÁO DEEP LEARNING_copy.docx](<BÁO CÁO DEEP LEARNING_copy.docx>) ngày 14/11/2026. Chương 2 đã được điền đủ mô tả bài toán, input/output, ví dụ minh họa, dữ liệu sử dụng, giới hạn và bố cục bốn chương. Nội dung các chương khác được giữ nguyên. Tài liệu sử dụng các mục tài liệu tham khảo [22]/[23] đã có và chưa đưa kết quả chạy thử vào bảng kết quả chính thức. File DOCX vẫn là tài liệu local được Git bỏ qua.
+
+Cả nhóm còn hoàn thiện các chương còn lại và rà soát bản cuối; không còn chờ giảng viên cung cấp mẫu. Word được đặt cập nhật các trường khi mở; nếu mục lục vẫn hiển thị nội dung cũ, chọn **Update Table → Update entire table**.
