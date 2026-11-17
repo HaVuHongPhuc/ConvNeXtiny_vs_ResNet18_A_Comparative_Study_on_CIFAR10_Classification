@@ -1,0 +1,3 @@
+Model,Test Accuracy,Macro-F1,Test Loss,Params (M),FLOPs (G),Latency mean (ms),Throughput (samples/s),Peak memory (MB)
+resnet18,0.9644,0.9643,0.1337,11.7,1.81,19.765,1619.0,284.618
+convnext_tiny,0.9824,0.9824,0.0716,28.6,4.46,106.061,301.714,503.163
