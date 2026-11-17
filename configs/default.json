@@ -1,4 +1,4 @@
-﻿{
+{
   "seed": 42,
   "model": "convnext_tiny",
   "weights": "IMAGENET1K_V1",
@@ -19,7 +19,10 @@
   "amp": true,
   "early_stopping_patience": 5,
   "deterministic": false,
-  "device": "auto",
+  "device": "cuda",
   "output_dir": "artifacts",
-  "run_name": null
+  "run_name": null,
+  "eval_batch_size": 32,
+  "warmup": 20,
+  "repeats": 100
 }

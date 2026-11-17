@@ -1,0 +1,43 @@
+{
+  "checked_at": "2026-11-17T18:16:43.178520+08:00",
+  "run_name": "resnet18_seed42_20261117_175014_404116",
+  "model": "resnet18",
+  "checkpoint": "artifacts\\checkpoints\\resnet18_seed42_20261117_175014_404116\\best.pt",
+  "epoch": 9,
+  "device": "cuda",
+  "gpu": "NVIDIA GeForce RTX 5070 Ti",
+  "amp_enabled": true,
+  "class_names": [
+    "airplane",
+    "automobile",
+    "bird",
+    "cat",
+    "deer",
+    "dog",
+    "frog",
+    "horse",
+    "ship",
+    "truck"
+  ],
+  "expected_validation": {
+    "accuracy": 0.9646,
+    "loss": 0.13730251471996308
+  },
+  "reloaded_validation": {
+    "loss": 0.13729811782836915,
+    "accuracy": 0.9646,
+    "samples": 5000
+  },
+  "accuracy_difference": 0.0,
+  "loss_difference": -4.396891593927421e-06,
+  "checks": {
+    "strict_load": true,
+    "validation_samples_5000": true,
+    "metrics_finite": true,
+    "accuracy_matches": true,
+    "loss_matches": true
+  },
+  "passed": true,
+  "training_performed": false,
+  "test_evaluated": false
+}

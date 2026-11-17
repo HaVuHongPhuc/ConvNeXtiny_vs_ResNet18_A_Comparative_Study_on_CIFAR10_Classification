@@ -1,0 +1,18 @@
+{
+  "run_group": "20261117_175014_404116",
+  "config_sha256": "e40fd090557395ea2dae4dc162abdae3a33c556bd4d290bd96535b3f4bec236e",
+  "results": {
+    "resnet18": {
+      "model": "resnet18",
+      "best_epoch": 9,
+      "best_val_accuracy": 0.9646,
+      "best_val_loss": 0.13730251471996308,
+      "epochs_completed": 10,
+      "best_checkpoint": "artifacts\\checkpoints\\resnet18_seed42_20261117_175014_404116\\best.pt",
+      "last_checkpoint": "artifacts\\checkpoints\\resnet18_seed42_20261117_175014_404116\\last.pt",
+      "metrics_csv": "artifacts\\logs\\resnet18_seed42_20261117_175014_404116\\metrics.csv",
+      "device": "cuda"
+    }
+  },
+  "test_evaluated": false
+}

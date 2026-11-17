@@ -1,0 +1,18 @@
+{
+  "run_group": "20261117_191514_964199",
+  "config_sha256": "e40fd090557395ea2dae4dc162abdae3a33c556bd4d290bd96535b3f4bec236e",
+  "results": {
+    "convnext_tiny": {
+      "model": "convnext_tiny",
+      "best_epoch": 10,
+      "best_val_accuracy": 0.985,
+      "best_val_loss": 0.058306473898887635,
+      "epochs_completed": 10,
+      "best_checkpoint": "artifacts\\checkpoints\\convnext_tiny_seed42_20261117_191514_964199\\best.pt",
+      "last_checkpoint": "artifacts\\checkpoints\\convnext_tiny_seed42_20261117_191514_964199\\last.pt",
+      "metrics_csv": "artifacts\\logs\\convnext_tiny_seed42_20261117_191514_964199\\metrics.csv",
+      "device": "cuda"
+    }
+  },
+  "test_evaluated": false
+}

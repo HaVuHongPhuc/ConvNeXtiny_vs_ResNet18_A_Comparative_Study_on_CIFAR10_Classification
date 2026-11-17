@@ -1,0 +1,19 @@
+MÔI TRƯỜNG THỰC TẾ CỦA PHÚC
+Thời điểm: 2026-11-17T17:07:30+08:00
+Python: 3.14.4 (tags/v3.14.4:23116f9, Apr  7 2026, 14:10:54) [MSC v.1944 64 bit (AMD64)]
+Kernel executable: c:\Users\havuh\OneDrive\Desktop\HocTap\ConvNeXtiny_vs_ResNet18_A_Comparative_Study_on_CIFAR10_Classification\.venv-1\Scripts\python.exe
+Đúng .venv-1: True
+OS: Windows-11-10.0.26300-SP0
+torch: 2.14.1+cu130
+torchvision: 0.29.1+cu130
+PyTorch CUDA build: 13.0
+CUDA available: True
+GPU: [{"index": 0, "name": "NVIDIA GeForce RTX 5070 Ti", "capability": [12, 0], "total_memory_bytes": 17066033152}]
+Driver query columns: index,name,driver_version,memory.total
+0, NVIDIA GeForce RTX 5070 Ti, 617.42, 16303 MiB
+Gói chính: {"torch": "2.14.1+cu130", "torchvision": "0.29.1+cu130", "numpy": "2.5.4", "scikit-learn": "1.9.1", "ipykernel": "7.4.0", "matplotlib": "NOT_INSTALLED"}
+Điều kiện môi trường: {"kernel_is_project_venv1": true, "torch_cuda_available": true, "pytorch_has_cuda_build": true, "planned_gpu_detected": true, "driver_recorded": true, "ipykernel_installed": true}
+Training environment ready: True
+Visualize dependency ready: False
+Không chạy training, inference hoặc benchmark.
+Danh sách gói đầy đủ: reports/requirements_phuc_snapshot.txt

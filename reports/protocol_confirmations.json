@@ -1,0 +1,200 @@
+{
+    "protocol_id":  "cifar10-baseline-v1",
+    "recorded_date":  "2026-11-16",
+    "recorded_by":  "Phúc — thông qua câu trả lời trong cuộc trò chuyện",
+    "status":  "baseline_preflight_verified",
+    "config_path":  "configs/default.json",
+    "config_sha256":  "e40fd090557395ea2dae4dc162abdae3a33c556bd4d290bd96535b3f4bec236e",
+    "data_py_sha256":  "8dcaa6e3a6eb236cc4cbcdb13a2baf4c6375561acf0c1bde1d6bb1f160edc082",
+    "data_pipeline":  {
+                          "contact":  "Khang",
+                          "status":  "confirmed_via_user",
+                          "scope":  {
+                                        "train_samples":  45000,
+                                        "validation_samples":  5000,
+                                        "test_samples":  10000,
+                                        "seed":  42,
+                                        "val_size":  5000,
+                                        "input_size":  224,
+                                        "batch_size":  32,
+                                        "num_workers":  4,
+                                        "split_path":  "data/splits/split_indices.json",
+                                        "transforms":  "Theo data.py hiện có",
+                                        "class_order":  [
+                                                            "airplane",
+                                                            "automobile",
+                                                            "bird",
+                                                            "cat",
+                                                            "deer",
+                                                            "dog",
+                                                            "frog",
+                                                            "horse",
+                                                            "ship",
+                                                            "truck"
+                                                        ]
+                                    },
+                          "user_statement":  "Đã xác nhận đúng các thiết lập trên",
+                          "note":  "Đây là xác nhận do Phúc cung cấp; không phải assistant tự liên hệ Khang."
+                      },
+    "evaluation_and_profiling":  {
+                                     "contact":  "Quy",
+                                     "status":  "confirmed_via_user",
+                                     "scope":  {
+                                                   "metrics":  [
+                                                                   "accuracy",
+                                                                   "macro_f1",
+                                                                   "per_class"
+                                                               ],
+                                                   "device":  "NVIDIA GeForce RTX 5070 Ti",
+                                                   "dtype":  "float32",
+                                                   "input_size":  224,
+                                                   "batch_size":  32,
+                                                   "warmup":  20,
+                                                   "repeats":  100,
+                                                   "scope":  "model forward only; excludes data loading"
+                                               },
+                                     "user_statement":  "Đã xác nhận đúng các thiết lập trên",
+                                     "note":  "Phạm vi câu hỏi xác nhận không bao gồm việc đã hoàn thành công cụ đếm FLOPs trực tiếp."
+                                 },
+    "training_baseline":  {
+                              "basis":  "Phúc yêu cầu hoàn thiện và chốt cấu hình; giữ baseline từ project, một seed, không tuning riêng trong vòng đầu.",
+                              "seeds":  [
+                                            42
+                                        ],
+                              "models":  [
+                                             "resnet18",
+                                             "convnext_tiny"
+                                         ],
+                              "weights":  "IMAGENET1K_V1",
+                              "freeze_backbone":  false,
+                              "epochs":  10,
+                              "early_stopping_patience":  5,
+                              "per_model_tuning_runs":  0,
+                              "checkpoint_rule":  "max validation accuracy; tie -\u003e min validation loss"
+                          },
+    "flops_policy":  {
+                         "status":  "reference_only_until_direct_counter_available",
+                         "direct_count_complete":  false,
+                         "report_actual_parameters_from":  "params_total_actual",
+                         "reference_model_head_classes":  1000,
+                         "actual_model_head_classes":  10,
+                         "note":  "Nếu dùng FLOPs hiện có, ghi rõ tham chiếu torchvision/ImageNet, input 224, batch 1; không gọi là số đo trực tiếp của model 10 lớp. Không báo MACs chưa tính."
+                     },
+    "execution_policy":  {
+                             "assistant_runs_code":  false,
+                             "user_runs_and_returns_results":  true
+                         },
+    "environment":  {
+                        "status":  "verified_from_saved_user_outputs",
+                        "notebook":  "notebooks/Chot_protocol_va_ghi_moi_truong.ipynb",
+                        "expected_kernel":  ".venv-1",
+                        "expected_report":  "reports/environment_phuc.txt",
+                        "captured_at":  "2026-11-17T17:07:30+08:00",
+                        "review_date":  "2026-11-17",
+                        "review_method":  "Read saved notebook outputs and reports only; no project execution",
+                        "readiness_report":  "reports/phase2_readiness.json",
+                        "training_environment_ready":  true,
+                        "visualize_dependency_ready":  false,
+                        "training_readiness_scope":  "T018-T023 completed: both training/reload checks passed; single-seed condition resolved; run_manifest.csv finalized before test. Next T024/T025 handoff. No official test/profiling performed."
+                    },
+    "fingerprint_format":  "UTF-8 text, BOM removed, CRLF normalized to LF",
+    "preflight":  {
+                      "status":  "verified_from_saved_user_outputs",
+                      "report":  "reports/phase3_preflight_20261117_174231_303611.json",
+                      "captured_at":  "2026-11-17T17:43:11+08:00",
+                      "review_date":  "2026-11-17",
+                      "notebook":  "notebooks/04_Huan_luyen_chinh_thuc_CIFAR10_resnet18.ipynb",
+                      "preflight_passed":  true,
+                      "execution_counts":  [
+                                               1,
+                                               2,
+                                               3,
+                                               4
+                                           ],
+                      "disk_free_gib_at_capture":  94.48241424560547,
+                      "training_started":  false,
+                      "test_evaluated":  false,
+                      "review_method":  "Read saved notebook/report and compare current text fingerprints; no project execution"
+                  },
+    "official_training":  {
+                              "resnet18":  {
+                                               "status":  "training_completed_reload_verified",
+                                               "run_name":  "resnet18_seed42_20261117_175014_404116",
+                                               "epochs_completed":  10,
+                                               "best_epoch":  9,
+                                               "best_val_accuracy":  0.9646,
+                                               "best_val_loss":  0.13730251471996308,
+                                               "preflight_report":  "reports/phase3_preflight_20261117_175014_404116.json",
+                                               "summary_path":  "artifacts/logs/resnet18_seed42_20261117_175014_404116/summary.json",
+                                               "review_report":  "reports/training_review_resnet18_seed42_20261117_175014_404116.json",
+                                               "checkpoint_reload_verified":  true,
+                                               "test_evaluated":  false,
+                                               "checkpoint_reload_report":  "reports/checkpoint_reload_resnet18_seed42_20261117_175014_404116_20261117_181643_179508.json",
+                                               "checkpoint_reload":  {
+                                                                         "checked_at":  "2026-11-17T18:16:43.178520+08:00",
+                                                                         "review_method":  "Read saved user notebook outputs and JSON report only; no assistant execution",
+                                                                         "execution_counts":  [
+                                                                                                  1,
+                                                                                                  2,
+                                                                                                  3,
+                                                                                                  4
+                                                                                              ],
+                                                                         "reloaded_val_accuracy":  0.9646,
+                                                                         "reloaded_val_loss":  0.13729811782836915,
+                                                                         "samples":  5000,
+                                                                         "loss_difference":  -4.3968915939274211E-06,
+                                                                         "strict_load":  true,
+                                                                         "forward_batch_finite":  true,
+                                                                         "test_evaluated":  false
+                                                                     }
+                                           },
+                              "convnext_tiny":  {
+                                                    "status":  "training_completed_reload_verified",
+                                                    "run_name":  "convnext_tiny_seed42_20261117_191514_964199",
+                                                    "epochs_completed":  10,
+                                                    "best_epoch":  10,
+                                                    "best_val_accuracy":  0.985,
+                                                    "best_val_loss":  0.058306473898887635,
+                                                    "preflight_report":  "reports/phase3_preflight_20261117_191514_964199.json",
+                                                    "summary_path":  "artifacts/logs/convnext_tiny_seed42_20261117_191514_964199/summary.json",
+                                                    "review_report":  "reports/training_review_convnext_tiny_seed42_20261117_191514_964199.json",
+                                                    "checkpoint_reload_verified":  true,
+                                                    "test_evaluated":  false,
+                                                    "checkpoint_reload_report":  "reports/checkpoint_reload_convnext_tiny_seed42_20261117_191514_964199_20261117_195006_056631.json",
+                                                    "checkpoint_reload":  {
+                                                                              "checked_at":  "2026-11-17T19:50:06.056436+08:00",
+                                                                              "review_method":  "Read saved user notebook outputs, report and summary only; no assistant project execution",
+                                                                              "execution_counts":  [
+                                                                                                       1,
+                                                                                                       2,
+                                                                                                       3,
+                                                                                                       4
+                                                                                                   ],
+                                                                              "reloaded_val_accuracy":  0.985,
+                                                                              "reloaded_val_loss":  0.058303282952308653,
+                                                                              "samples":  5000,
+                                                                              "loss_difference":  -3.1909465789820013E-06,
+                                                                              "strict_load":  true,
+                                                                              "forward_batch_finite":  true,
+                                                                              "test_evaluated":  false
+                                                                          }
+                                                }
+                          },
+    "run_selection":  {
+                          "status":  "finalized_before_test",
+                          "selected_at":  "2026-11-17T20:49:15.5700029+08:00",
+                          "manifest_path":  "reports/run_manifest.csv",
+                          "manifest_sha256":  "0695b106958e7943a0286106a833273d84d0cd6f01192748a654eadae2bcab82",
+                          "seeds":  [
+                                        42
+                                    ],
+                          "expected_runs_per_model":  1,
+                          "selected_run_count":  2,
+                          "additional_seeds":  "not_applicable",
+                          "additional_seeds_note":  "không áp dụng chạy thêm seed",
+                          "selection_rule":  "max_val_accuracy_then_min_val_loss",
+                          "evidence_basis":  "Saved user training summaries/metrics/reload reports; no assistant model execution",
+                          "test_evaluated_at_selection":  false,
+                          "handoff_to_quy_confirmed":  false
+                      }
+}
