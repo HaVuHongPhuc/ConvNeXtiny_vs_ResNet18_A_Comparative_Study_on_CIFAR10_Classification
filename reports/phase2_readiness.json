@@ -1,0 +1,20 @@
+{
+  "captured_at": "2026-11-17T17:07:30+08:00",
+  "protocol_id": "cifar10-baseline-v1",
+  "config_sha256": "e40fd090557395ea2dae4dc162abdae3a33c556bd4d290bd96535b3f4bec236e",
+  "data_py_sha256": "8dcaa6e3a6eb236cc4cbcdb13a2baf4c6375561acf0c1bde1d6bb1f160edc082",
+  "split_sha256": "4d6d124366adedc2d7d229a87d0b19d9bc0f9cae5070d1fa24f46e4cfbaaa5cc",
+  "checks": {
+    "config_matches_confirmed_fingerprint": true,
+    "data_code_matches_confirmed_fingerprint": true,
+    "saved_split_valid": true,
+    "khang_confirmation_recorded": true,
+    "quy_confirmation_recorded": true,
+    "training_environment_ready": true
+  },
+  "phase2_ready": true,
+  "visualize_dependency_ready": false,
+  "training_run_started": false,
+  "next": "Assistant xem kết quả để xác nhận T012; sau đó tiếp tục T013–T015.",
+  "note": "Đây không phải kết quả test, benchmark hoặc kiểm chứng training loop mới."
+}

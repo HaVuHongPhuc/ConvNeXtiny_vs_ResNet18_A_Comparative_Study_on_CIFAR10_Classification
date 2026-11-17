@@ -1,0 +1,58 @@
+{
+    "review_date":  "2026-11-17",
+    "run_name":  "resnet18_seed42_20261117_175014_404116",
+    "scope":  "Read saved notebook outputs, JSON/CSV, checkpoint ZIP structure only; no torch.load, inference, training or benchmark",
+    "checks":  {
+                   "ten_epochs_complete":  true,
+                   "epoch_order_valid":  true,
+                   "metrics_finite":  true,
+                   "metric_ranges_valid":  true,
+                   "cosine_backbone_lr_matches":  true,
+                   "run_config_matches_baseline_except_model_run":  true,
+                   "actual_model_resnet18":  true,
+                   "cuda_amp":  true,
+                   "full_data_from_preflight":  true,
+                   "best_epoch_matches_csv":  true,
+                   "best_accuracy_matches_csv":  true,
+                   "best_loss_matches_csv":  true,
+                   "training_manifest_matches_summary":  true,
+                   "artifacts_exist_nonempty":  true
+               },
+    "best_epoch":  9,
+    "best_val_accuracy":  0.9646,
+    "best_val_loss":  0.13730251471996308,
+    "last_epoch_train_accuracy":  0.99702222222222225,
+    "last_epoch_val_accuracy":  0.9642,
+    "sum_logged_epoch_seconds":  631.78192479998688,
+    "timing_scope":  "Sum of logged train/validation epoch timers; not complete end-to-end wall time",
+    "config_mismatches":  [
+
+                          ],
+    "artifacts":  [
+                      {
+                          "path":  "artifacts/checkpoints/resnet18_seed42_20261117_175014_404116/best.pt",
+                          "bytes":  134309143
+                      },
+                      {
+                          "path":  "artifacts/checkpoints/resnet18_seed42_20261117_175014_404116/last.pt",
+                          "bytes":  134309143
+                      },
+                      {
+                          "path":  "artifacts/logs/resnet18_seed42_20261117_175014_404116/config.json",
+                          "bytes":  1674
+                      },
+                      {
+                          "path":  "artifacts/logs/resnet18_seed42_20261117_175014_404116/metrics.csv",
+                          "bytes":  1150
+                      },
+                      {
+                          "path":  "artifacts/logs/resnet18_seed42_20261117_175014_404116/summary.json",
+                          "bytes":  452
+                      }
+                  ],
+    "checkpoint_container_note":  "Both .pt files opened as ZIP; each has data.pkl and 308 tensor entries. No unpickle/strict load/forward performed.",
+    "checkpoint_reload_verified":  false,
+    "validation_recomputed":  false,
+    "test_evaluated":  false,
+    "next_task":  "T019: user runs strict reload and validation verification notebook"
+}

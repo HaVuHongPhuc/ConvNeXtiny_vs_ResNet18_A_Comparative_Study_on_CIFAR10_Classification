@@ -1,0 +1,55 @@
+{
+  "captured_at": "2026-11-17T17:07:30+08:00",
+  "timezone": "Asia/Singapore",
+  "python_version": "3.14.4",
+  "python_full_version": "3.14.4 (tags/v3.14.4:23116f9, Apr  7 2026, 14:10:54) [MSC v.1944 64 bit (AMD64)]",
+  "python_executable": "c:\\Users\\havuh\\OneDrive\\Desktop\\HocTap\\ConvNeXtiny_vs_ResNet18_A_Comparative_Study_on_CIFAR10_Classification\\.venv-1\\Scripts\\python.exe",
+  "expected_kernel_executable": "c:\\Users\\havuh\\OneDrive\\Desktop\\HocTap\\ConvNeXtiny_vs_ResNet18_A_Comparative_Study_on_CIFAR10_Classification\\.venv-1\\Scripts\\python.exe",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "torch_version": "2.14.1+cu130",
+  "torchvision_version": "0.29.1+cu130",
+  "cuda_build": "13.0",
+  "cuda_available": true,
+  "gpus": [
+    {
+      "index": 0,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "capability": [
+        12,
+        0
+      ],
+      "total_memory_bytes": 17066033152
+    }
+  ],
+  "active_cuda_device": 0,
+  "driver_query": {
+    "available": true,
+    "output": "0, NVIDIA GeForce RTX 5070 Ti, 617.42, 16303 MiB",
+    "error": ""
+  },
+  "packages": {
+    "torch": "2.14.1+cu130",
+    "torchvision": "0.29.1+cu130",
+    "numpy": "2.5.4",
+    "scikit-learn": "1.9.1",
+    "ipykernel": "7.4.0",
+    "matplotlib": "NOT_INSTALLED"
+  },
+  "current_backend_flags": {
+    "cudnn_benchmark": false,
+    "cudnn_deterministic": false,
+    "tf32_matmul": false,
+    "tf32_cudnn": true
+  },
+  "environment_checks": {
+    "kernel_is_project_venv1": true,
+    "torch_cuda_available": true,
+    "pytorch_has_cuda_build": true,
+    "planned_gpu_detected": true,
+    "driver_recorded": true,
+    "ipykernel_installed": true
+  },
+  "training_environment_ready": true,
+  "visualize_dependency_ready": false,
+  "note": "Flags ghi nhận từ kernel hiện tại; train.py có thể đặt lại cuDNN khi set_seed. Không có training/benchmark trong notebook này."
+}

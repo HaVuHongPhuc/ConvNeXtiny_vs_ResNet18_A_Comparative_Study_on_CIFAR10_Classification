@@ -1,0 +1,122 @@
+{
+  "captured_at": "2026-11-17T17:50:49+08:00",
+  "protocol_id": "cifar10-baseline-v1",
+  "run_group": "20261117_175014_404116",
+  "config": {
+    "seed": 42,
+    "model": "convnext_tiny",
+    "weights": "IMAGENET1K_V1",
+    "pretrained": true,
+    "freeze_backbone": false,
+    "num_classes": 10,
+    "data_root": "data/raw",
+    "split_path": "data/splits/split_indices.json",
+    "val_size": 5000,
+    "input_size": 224,
+    "batch_size": 32,
+    "num_workers": 4,
+    "epochs": 10,
+    "learning_rate": 0.0001,
+    "head_learning_rate": 0.001,
+    "weight_decay": 0.05,
+    "scheduler": "cosine",
+    "amp": true,
+    "early_stopping_patience": 5,
+    "deterministic": false,
+    "device": "cuda",
+    "output_dir": "artifacts",
+    "run_name": null,
+    "eval_batch_size": 32,
+    "warmup": 20,
+    "repeats": 100
+  },
+  "config_sha256": "e40fd090557395ea2dae4dc162abdae3a33c556bd4d290bd96535b3f4bec236e",
+  "source_fingerprints": {
+    "src/cifar_compare/data.py": "8dcaa6e3a6eb236cc4cbcdb13a2baf4c6375561acf0c1bde1d6bb1f160edc082",
+    "src/cifar_compare/models.py": "5488c290f6065b42b1a4b2655666dd88804e9af0b756e5d7a85d22a5771f4c77",
+    "src/cifar_compare/train.py": "30a1bed81ffca7edbf4f30db4112031fd5d0f358ec2e9f0cb302fbb45d2c9e29",
+    "src/cifar_compare/utils.py": "a698eb1e78c7e82cc78700d00e768dfd6167a7bc41a5afb816aa1b3807dd8645"
+  },
+  "split_sha256": "4d6d124366adedc2d7d229a87d0b19d9bc0f9cae5070d1fa24f46e4cfbaaa5cc",
+  "samples": {
+    "train": 45000,
+    "validation": 5000,
+    "test": 10000
+  },
+  "class_names": [
+    "airplane",
+    "automobile",
+    "bird",
+    "cat",
+    "deer",
+    "dog",
+    "frog",
+    "horse",
+    "ship",
+    "truck"
+  ],
+  "data_info": {
+    "dataset": "CIFAR-10 (torchvision)",
+    "data_root": "data/raw",
+    "split_path": "data/splits/split_indices.json",
+    "seed": 42,
+    "val_size": 5000,
+    "input_size": 224,
+    "interpolation": "bilinear",
+    "mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "std": [
+      0.229,
+      0.224,
+      0.225
+    ],
+    "train_transform": "Compose(\n    RandomCrop(size=(32, 32), padding=4)\n    RandomHorizontalFlip(p=0.5)\n    Resize(size=(224, 224), interpolation=bilinear, max_size=None, antialias=True)\n    ToTensor()\n    Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])\n)",
+    "eval_transform": "Compose(\n    Resize(size=(224, 224), interpolation=bilinear, max_size=None, antialias=True)\n    ToTensor()\n    Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])\n)"
+  },
+  "batches": {
+    "train": {
+      "image_shape": [
+        32,
+        3,
+        224,
+        224
+      ],
+      "label_shape": [
+        32
+      ],
+      "image_dtype": "torch.float32",
+      "label_dtype": "torch.int64",
+      "finite": true,
+      "num_workers": 4
+    },
+    "validation": {
+      "image_shape": [
+        32,
+        3,
+        224,
+        224
+      ],
+      "label_shape": [
+        32
+      ],
+      "image_dtype": "torch.float32",
+      "label_dtype": "torch.int64",
+      "finite": true,
+      "num_workers": 4
+    }
+  },
+  "device": "cuda",
+  "gpu_name": "NVIDIA GeForce RTX 5070 Ti",
+  "disk_free_gib": 94.46807098388672,
+  "minimum_free_gib": 5.0,
+  "planned_runs": {
+    "resnet18": "resnet18_seed42_20261117_175014_404116"
+  },
+  "output_root": "C:\\Users\\havuh\\OneDrive\\Desktop\\HocTap\\ConvNeXtiny_vs_ResNet18_A_Comparative_Study_on_CIFAR10_Classification\\artifacts",
+  "preflight_passed": true,
+  "training_started_during_preflight": false,
+  "test_evaluated": false
+}

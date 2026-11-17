@@ -1,0 +1,37 @@
+{
+    "review_date":  "2026-11-17",
+    "scope":  "Saved notebook/JSON/CSV file review only; no model execution",
+    "run_name":  "convnext_tiny_seed42_20261117_191514_964199",
+    "epochs_completed":  10,
+    "best_epoch":  10,
+    "best_val_accuracy":  0.985,
+    "best_val_loss":  0.058306473898887635,
+    "config_matches_baseline":  true,
+    "metrics_finite":  true,
+    "best_epoch_matches_csv":  true,
+    "artifacts":  [
+                      {
+                          "path":  "artifacts/checkpoints/convnext_tiny_seed42_20261117_191514_964199/best.pt",
+                          "bytes":  334144079
+                      },
+                      {
+                          "path":  "artifacts/checkpoints/convnext_tiny_seed42_20261117_191514_964199/last.pt",
+                          "bytes":  334144079
+                      },
+                      {
+                          "path":  "artifacts/logs/convnext_tiny_seed42_20261117_191514_964199/config.json",
+                          "bytes":  1684
+                      },
+                      {
+                          "path":  "artifacts/logs/convnext_tiny_seed42_20261117_191514_964199/metrics.csv",
+                          "bytes":  1163
+                      },
+                      {
+                          "path":  "artifacts/logs/convnext_tiny_seed42_20261117_191514_964199/summary.json",
+                          "bytes":  473
+                      }
+                  ],
+    "checkpoint_reload_verified":  false,
+    "test_evaluated":  false,
+    "next_task":  "T021"
+}
