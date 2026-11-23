@@ -196,5 +196,34 @@
                           "evidence_basis":  "Saved user training summaries/metrics/reload reports; no assistant model execution",
                           "test_evaluated_at_selection":  false,
                           "handoff_to_quy_confirmed":  false
-                      }
+                      },
+    "handoff_preparation":  {
+                                "status":  "prepared_locally_not_sent",
+                                "prepared_date":  "2026-11-17",
+                                "handoff_report":  "reports/handoff_phuc.md",
+                                "khang_method_summary":  "reports/method_summary_khang.md",
+                                "package_inventory":  "artifacts/notebook_smoke/handoff_preparation/20261117_224255_7002957/package_inventory.json",
+                                "packages":  [
+                                                 {
+                                                     "recipient":  "Quy",
+                                                     "path":  "artifacts/notebook_smoke/handoff_preparation/20261117_224255_7002957/handoff_quy.zip",
+                                                     "bytes":  435345623,
+                                                     "sha256":  "30bd3f6c27261540144154637e0cdd0ad91cb60f051bc9e9a8f87f8ec79ad355",
+                                                     "sent":  false,
+                                                     "recipient_access_confirmed":  false
+                                                 },
+                                                 {
+                                                     "recipient":  "Khang",
+                                                     "path":  "artifacts/notebook_smoke/handoff_preparation/20261117_224255_7002957/handoff_khang.zip",
+                                                     "bytes":  152627,
+                                                     "sha256":  "5e3a748bbcf0cc44d730bf215a7363fe525c5f0c3480ad4ba6e014b3415bca15",
+                                                     "sent":  false,
+                                                     "recipient_access_confirmed":  false
+                                                 }
+                                             ],
+                                "assistant_sent_messages":  false,
+                                "assistant_uploaded_files":  false,
+                                "T024_complete":  false,
+                                "T025_complete":  false
+                            }
 }
