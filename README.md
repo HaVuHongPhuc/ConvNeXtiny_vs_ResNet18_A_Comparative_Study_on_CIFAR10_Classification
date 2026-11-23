@@ -318,3 +318,5 @@ Phúc tự chọn nơi chia sẻ, tải gói lên, cấp quyền và gửi link 
 ## Kết quả notebook 06 trên máy Phúc
 
 Lần chạy ngày 23/11 dùng hai checkpoint SHA256 khớp manifest, ResNet18 epoch 9 và ConvNeXt-Tiny epoch 10. Trên 10.000 ảnh test, accuracy lần lượt là 96,06% và 98,30%. Benchmark forward FP32 trên RTX 5070 Ti, input 224, batch 32, warm-up 20 và 100 lần đo cho latency trung bình lần lượt 5,73 và 22,98 ms/batch. Bảng ở [comparison_table.csv](artifacts/comparison_table.csv). Khi đưa vào báo cáo, ghi bộ nhớ bằng MiB và sửa chú thích màu của hình chênh lệch lỗi. Bước bàn giao kết quả cho Quy vẫn ở T029.
+
+Notebook 06 đã đổi bảng màu của khung chênh lệch ConvNeXt trừ ResNet sang RdBu_r. Giá trị âm hiện tương ứng màu xanh khi vẽ. Chạy lại cell xuất confusion_errors_side_by_side.png để cập nhật ảnh từ kết quả đã lưu.
