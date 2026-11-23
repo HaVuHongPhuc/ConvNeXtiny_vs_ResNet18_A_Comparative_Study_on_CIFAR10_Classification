@@ -157,15 +157,15 @@ Các checkbox ở đây vẫn là việc của bạn: chuẩn bị, nhận bàn 
   **Bằng chứng:** `artifacts/notebook_smoke/post_pull_review/20261116_c04b0de/review_report.json`.
   **Phạm vi còn lại:** protocol P1 và xác nhận nhóm vẫn ở T008/T010/T011. `visualize.py` đã nhận nhưng chưa import được vì thiếu matplotlib; thư viện này chưa có trong requirements.txt.
 
-- [ ] T027 Hỗ trợ đánh giá test của các checkpoint đã chốt trên máy GPU khi cần.
+- [x] T027 Hỗ trợ đánh giá test của các checkpoint đã chốt trên máy GPU khi cần.
   **Phụ thuộc:** T023, T024, T026.
-  **Đã có:** code đánh giá và kiểm tra tích hợp nhỏ ở T026. Còn cần checkpoint chính thức T023/T024 và protocol cuối; **chờ Khang** xác nhận pipeline dùng chung ở T008, phối hợp **Quy** chốt tùy chọn đánh giá trước khi chạy test cuối.
+  **Đã chạy 23/11:** notebook 06 đánh giá hai checkpoint đã chốt trên 10.000 ảnh, batch 32. SHA256, thứ tự ảnh, nhãn, accuracy và confusion matrix khớp. Kết quả chờ bàn giao cho Quy ở T029.
   **Đầu ra:** chạy công cụ được bàn giao khi cần dùng máy bạn, lưu outputs đúng run và gửi lại; nếu không cần máy bạn, nhận kết quả và đối chiếu checkpoint/run/class order.
   **Xong khi:** mỗi kết quả truy ngược được tới checkpoint đã chốt; không dùng test để quay lại chọn cấu hình.
 
-- [ ] T028 Bố trí GPU rảnh và hỗ trợ chạy công cụ profiling.
+- [x] T028 Bố trí GPU rảnh và hỗ trợ chạy công cụ profiling.
   **Phụ thuộc:** T026 và điều kiện đo T010/T011.
-  **Chờ Quy:** công cụ đo đã kiểm chứng, hướng dẫn, warm-up, số lần đo, dtype và batch size. Nếu phép đo gắn với checkpoint cuối, dùng đúng T023.
+  **Đã chạy 23/11:** RTX 5070 Ti của Phúc, FP32, batch 32, input 224, warm-up 20, đo 100 lần. JSON đo của cả hai model nằm trong artifacts/profiling/.
   **Đầu ra:** measurements thô kèm thiết bị, cấu hình và định nghĩa thời gian; không chạy training đồng thời.
 
 - [ ] T029 Bàn giao outputs đánh giá/benchmark đã chạy trên máy mình.
