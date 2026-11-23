@@ -1,0 +1,37 @@
+{
+  "checked_at": "2026-11-23T16:58:35",
+  "run_name": "resnet18_seed42_20261117_175014_404116",
+  "model": "resnet18",
+  "checkpoint": "artifacts/checkpoints/resnet18_seed42_20261117_175014_404116/best.pt",
+  "checkpoint_sha256": "9de917e947a6fb32ca01a8c14c61658c842a81b4f6f78ba7413469bf6bc7947c",
+  "epoch": 10,
+  "device": "cpu",
+  "gpu": null,
+  "amp_enabled": false,
+  "class_names": [
+    "airplane",
+    "automobile",
+    "bird",
+    "cat",
+    "deer",
+    "dog",
+    "frog",
+    "horse",
+    "ship",
+    "truck"
+  ],
+  "expected_validation": {
+    "accuracy": 0.9658,
+    "loss": 0.1286797357559204
+  },
+  "checks": {
+    "strict_load": true,
+    "checkpoint_sha256_matches": true,
+    "metrics_finite": true,
+    "accuracy_matches": true,
+    "loss_matches": true
+  },
+  "passed": true,
+  "training_performed": false,
+  "test_evaluated": false
+}

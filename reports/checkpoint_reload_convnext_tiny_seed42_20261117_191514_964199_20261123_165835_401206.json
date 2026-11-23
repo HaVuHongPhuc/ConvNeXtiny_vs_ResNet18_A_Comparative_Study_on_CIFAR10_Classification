@@ -1,0 +1,37 @@
+{
+  "checked_at": "2026-11-23T16:58:35",
+  "run_name": "convnext_tiny_seed42_20261117_191514_964199",
+  "model": "convnext_tiny",
+  "checkpoint": "artifacts/checkpoints/convnext_tiny_seed42_20261117_191514_964199/best.pt",
+  "checkpoint_sha256": "07726f08f96c080aaec73970ee882d3ee7e7cb882638559eddbfae64b3887a2f",
+  "epoch": 9,
+  "device": "cpu",
+  "gpu": null,
+  "amp_enabled": false,
+  "class_names": [
+    "airplane",
+    "automobile",
+    "bird",
+    "cat",
+    "deer",
+    "dog",
+    "frog",
+    "horse",
+    "ship",
+    "truck"
+  ],
+  "expected_validation": {
+    "accuracy": 0.985,
+    "loss": 0.06743563089370727
+  },
+  "checks": {
+    "strict_load": true,
+    "checkpoint_sha256_matches": true,
+    "metrics_finite": true,
+    "accuracy_matches": true,
+    "loss_matches": true
+  },
+  "passed": true,
+  "training_performed": false,
+  "test_evaluated": false
+}
