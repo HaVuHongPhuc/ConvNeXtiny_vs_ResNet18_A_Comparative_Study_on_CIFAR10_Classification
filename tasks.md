@@ -139,12 +139,14 @@ Các việc dưới đây được giữ lại để bạn biết điểm bắt 
 Các checkbox ở đây vẫn là việc của bạn: chuẩn bị, nhận bàn giao, tích hợp và hỗ trợ chạy. Không bao gồm việc tự viết các module đánh giá/profiling/trực quan hóa.
 
 - [ ] T024 Chuẩn bị và bàn giao bộ artifacts đã chốt cho bước đánh giá.
+  **Đã chuẩn bị 17/11:** gói ZIP Quy có hai best.pt và đầy đủ metadata/hướng dẫn; xem reports/handoff_phuc.md để lấy đường dẫn. ZIP/sha checkpoint đã kiểm tra. Chưa gửi/chưa có xác nhận Quy truy cập được; giữ task mở.
   **Phụ thuộc:** T023.
   **Đầu ra:** checkpoint của từng run, config, metrics CSV, summary, class order, split hoặc thông tin tái lập split, môi trường và hướng dẫn load.
   **Nơi bàn giao:** thống nhất nơi lưu checkpoint lớn; không đưa dataset/checkpoint lên Git. Ghi đường dẫn và nội dung bàn giao tại `reports/handoff_phuc.md`.
   **Người nhận:** Quy. Chỉ tick khi đã thực sự bàn giao hoặc xác nhận truy cập được.
 
 - [ ] T025 Chia sẻ cấu hình cuối và các thay đổi ảnh hưởng mô tả phương pháp.
+  **Đã chuẩn bị 17/11:** reports/method_summary_khang.md và gói ZIP Khang; hướng dẫn/tin nhắn mẫu tại reports/handoff_phuc.md. Chưa chia sẻ thực tế, giữ task mở.
   **Phụ thuộc:** T011; cập nhật lại sau T023 nếu thực nghiệm có thay đổi.
   **Đầu ra:** bản config/protocol được chia sẻ và nội dung cần đồng bộ trong báo cáo.
   **Người nhận:** Khang. Không cần chờ các hình/bảng kết quả để chia sẻ cấu hình.
@@ -276,3 +278,6 @@ Các mục này chưa là điều kiện bắt buộc để bắt đầu T018/T0
 
 
 **T022–T023 hoàn tất ngày 17/11/2026:** baseline cifar10-baseline-v1 chỉ dùng seed42, một run/model; hai run đã đủ và reload PASS. T022: “không áp dụng chạy thêm seed”; không cần huấn luyện lặp. T023: đã chốt hai best.pt tại reports/run_manifest.csv trước đánh giá test: ResNet18 run resnet18_seed42_20261117_175014_404116, epoch9, validation0,9646; ConvNeXt-Tiny run convnext_tiny_seed42_20261117_191514_964199, epoch10, validation0,985. CSV ghi config/split/metrics/summary/reload report, protocol và SHA256 checkpoint/split; accuracy ở thang0–1. Đã đối chiếu file nguồn/CSV/protocol/fingerprints/class order, đọc lại manifest và kiểm tra đường dẫn/hash. Chỉ xử lý file bằng công cụ tài liệu, không chạy project/model/notebook/test/benchmark hoặc cài gói. Tổng24/40 task; tiếp theo T024 bàn giao artifacts cho Quy và T025 chia sẻ cấu hình cho Khang. Chưa gửi file/tin nhắn, chưa xác nhận thành viên khác truy cập được; T024/T025 còn mở.
+
+
+17/11/2026 — Chuẩn bị T024/T025: tạo reports/handoff_phuc.md (nội dung, hướng dẫn gửi, bảng trạng thái, tin nhắn mẫu cho Phúc tự gửi) và reports/method_summary_khang.md (config/dữ liệu/thay đổi phương pháp cho Khang). Đã đóng hai ZIP local dưới artifacts/notebook_smoke/handoff_preparation; Quy nhận hai best.pt và logs/split/class order/protocol/môi trường/code snapshot/hướng dẫn load; Khang nhận bộ phương pháp nhỏ không có checkpoint. Đã kiểm tra entries và SHA256 checkpoint trong ZIP khớp manifest. Không gồm dataset/venv/.env/AGENTS/Word, không đổi .gitignore. Chỉ xử lý file, không chạy project/model/test/benchmark, không cài gói, không tải lên dịch vụ hoặc gửi tin nhắn. T024/T025 vẫn chưa tick vì chưa gửi/link/ack thực tế; tổng24/40. Phúc cần tự gửi cho Quy/Khang, ghi nơi gửi/thời điểm và bằng chứng truy cập vào handoff_phuc.md rồi báo kết quả.

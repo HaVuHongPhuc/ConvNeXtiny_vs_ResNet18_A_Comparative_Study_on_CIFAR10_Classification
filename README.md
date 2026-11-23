@@ -305,3 +305,12 @@ T022 đã hoàn tất: **không áp dụng chạy thêm seed**. Protocol baselin
 **Bước tiếp theo:** T024 bàn giao cho Quy manifest kèm hai best.pt, config/logs, class order, split và môi trường; T025 chia sẻ cấu hình cho Khang. CSV không tự chuyển các file lớn: cần bàn giao thật và ghi lại nơi nhận/trạng thái truy cập trước khi tick T024.
 
 **T022–T023 hoàn tất ngày 17/11/2026:** baseline cifar10-baseline-v1 chỉ dùng seed42, một run/model; hai run đã đủ và reload PASS. T022: “không áp dụng chạy thêm seed”; không cần huấn luyện lặp. T023: đã chốt hai best.pt tại reports/run_manifest.csv trước đánh giá test: ResNet18 run resnet18_seed42_20261117_175014_404116, epoch9, validation0,9646; ConvNeXt-Tiny run convnext_tiny_seed42_20261117_191514_964199, epoch10, validation0,985. CSV ghi config/split/metrics/summary/reload report, protocol và SHA256 checkpoint/split; accuracy ở thang0–1. Đã đối chiếu file nguồn/CSV/protocol/fingerprints/class order, đọc lại manifest và kiểm tra đường dẫn/hash. Chỉ xử lý file bằng công cụ tài liệu, không chạy project/model/notebook/test/benchmark hoặc cài gói. Tổng24/40 task; tiếp theo T024 bàn giao artifacts cho Quy và T025 chia sẻ cấu hình cho Khang. Chưa gửi file/tin nhắn, chưa xác nhận thành viên khác truy cập được; T024/T025 còn mở.
+
+
+## Chuẩn bị bàn giao T024/T025
+
+[handoff_phuc.md](reports/handoff_phuc.md) ghi nội dung từng gói, đường dẫn ZIP local, SHA256, cách gửi, tin nhắn mẫu và bảng để Phúc điền link/thời điểm/xác nhận nhận. [method_summary_khang.md](reports/method_summary_khang.md) ghi cấu hình cuối và các thay đổi Khang cần đồng bộ ở Chương1/mục3.1.
+
+Đã chuẩn bị ZIP Quy (~415MiB, có hai best.pt và artifacts) và ZIP Khang (~0,15MiB, không checkpoint). Các file ZIP nằm trong thư mục ignore artifacts/notebook_smoke/handoff_preparation; không đưa dataset/checkpoint/ZIP lớn lên Git. Hai gói giữ đường dẫn tương đối của manifest; giải nén vào thư mục riêng để đối chiếu code trước khi ghép vào project đang làm.
+
+Phúc tự chọn nơi chia sẻ, tải gói lên, cấp quyền và gửi link cho đúng người. Việc tạo file local hoặc project đang nằm trong OneDrive không chứng minh đã chia sẻ. T024/T025 vẫn mở, tổng24/40 task; chỉ tick sau khi có bằng chứng gửi/nhận đúng phạm vi. Không cần chạy notebook/training để bàn giao.
