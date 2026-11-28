@@ -322,3 +322,36 @@ Lần chạy ngày 23/11 dùng hai checkpoint SHA256 khớp manifest, ResNet18 e
 Notebook 06 đã đổi bảng màu của khung chênh lệch ConvNeXt trừ ResNet sang RdBu_r. Giá trị âm hiện tương ứng màu xanh khi vẽ. Chạy lại cell xuất confusion_errors_side_by_side.png để cập nhật ảnh từ kết quả đã lưu.
 
 Bộ kết quả đã chốt dùng output từ máy Phúc, với ResNet18 epoch 9 và ConvNeXt-Tiny epoch 10. Notebook 06 và ảnh so sánh đều dùng RdBu_r ở khung chênh lệch, nơi màu xanh biểu thị số lỗi giảm.
+
+Mục 4.1 của bản báo cáo Word đã có cấu hình thực chạy, bảng chọn checkpoint và learning curves từ hai run seed 42. Nguồn run, cấu hình và đường dẫn log được ghi trong [run_manifest.csv](reports/run_manifest.csv).
+
+Kịch bản thuyết trình của Phúc được lưu ở `Kich_ban_thuyet_trinh_Phuc_CIFAR10.docx`, với lời thoại khoảng 5–7 phút, gợi ý mở code và bảng đối chiếu kết quả từ báo cáo, log huấn luyện và notebook 06.
+
+Bản kịch bản có đối chiếu chi tiết là `Kich_ban_thuyet_trinh_Phuc_CIFAR10_co_doi_chieu_bao_cao.docx`. Mỗi phần và câu hỏi có số tiểu mục, số trang in và bảng/hình tương ứng trong báo cáo Word. Dàn ý mục 4.2 dẫn tới số liệu đã lưu trong notebook 06.
+
+Bản kịch bản đầy đủ là `Kich_ban_thuyet_trinh_chi_tiet_CIFAR10.docx`. Tài liệu đối chiếu cả bốn chương, hướng dẫn đọc 15 bảng và 7 hình trong báo cáo, kèm kết quả test/benchmark, ma trận nhầm lẫn, F1 từng lớp, ví dụ ảnh sai từ notebook 06 và lộ trình thuyết trình 5–7 phút.
+
+Kết luận và Phụ lục A–D nằm trong `BÁO CÁO DEEP LEARNING_copy_Ket_luan_va_Phu_luc.docx`. Phụ lục có hướng dẫn truy xuất checkpoint, điều kiện đo, kết quả từng lớp, ma trận lỗi và ảnh test minh họa.
+
+## Demo Streamlit trên máy cục bộ
+
+`streamlit_app.py` hiển thị ảnh đầu vào và dự đoán của cả hai mô hình. `src/cifar_compare/inference.py` đọc manifest, xác minh SHA-256 và metadata, nạp `best.pt`, rồi dùng lại transform validation/test ở `data.py`.
+
+Từ thư mục gốc của project, chạy trong PowerShell với môi trường `.venv-1` đã có PyTorch và torchvision.
+
+```powershell
+.\.venv-1\Scripts\python.exe -m pip install "streamlit>=1.55"
+.\.venv-1\Scripts\python.exe -m streamlit run streamlit_app.py --server.address=127.0.0.1
+```
+
+Mở địa chỉ Local URL trong terminal. Chọn **Ảnh mẫu CIFAR-10**, nhập chỉ số `456` rồi bấm **Chạy dự đoán**. Nhãn thật là `cat`. Dự đoán lưu trong notebook 06 là `deer` với ResNet18 và `cat` với ConvNeXt-Tiny. Thử thêm `3977`, `9227` hoặc tải ảnh JPG/PNG/WebP. Chọn **CPU** trong thanh bên nếu cần thử riêng nhánh CPU. Nhấn Ctrl+C trong terminal để dừng demo.
+
+Cần đặt cả hai file `best.pt` vào đúng đường dẫn trong `reports/run_manifest.csv`. Nguồn ảnh mẫu yêu cầu CIFAR-10 đã giải nén trong thư mục cấu hình `data_root`. Nhánh tải ảnh dùng được khi thư mục dữ liệu mẫu chưa có. [Hướng dẫn khởi chạy của Streamlit](https://docs.streamlit.io/develop/concepts/architecture/run-your-app).
+
+Mục 4.3 trình bày chức năng, hướng dẫn sử dụng và luồng suy luận. Bố cục đã được xem trong Word. Việc chạy ứng dụng và chụp ảnh giao diện thực tế do Phúc thực hiện.
+
+Bản báo cáo cập nhật mục 4.3 là `BÁO CÁO DEEP LEARNING_copy_cap_nhat_4.3_Streamlit_Logit.docx` (tr. 24–25). Kết luận chuyển sang tr. 26, Phụ lục giữ tr. 30–33.
+
+Demo hiển thị nhãn dự đoán, top 3 theo thứ hạng và bảng logit của 10 lớp theo từng mô hình. Logit là điểm thô dùng để xếp hạng. Accuracy được đọc ở mục kết quả thực nghiệm trên 10.000 ảnh test.
+
+- `Kich_ban_Phuc_slide_01-04_11-15_22-23.docx` — Kịch bản của Phúc theo slide 1–4, 11–15 và 22–23. Mỗi slide có lời nói và phần giải thích số liệu. Hai trang tra hình hướng dẫn đọc sơ đồ mạng và đường học.

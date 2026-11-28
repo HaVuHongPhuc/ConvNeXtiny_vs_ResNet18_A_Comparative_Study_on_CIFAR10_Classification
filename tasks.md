@@ -180,15 +180,16 @@ Các checkbox ở đây vẫn là việc của bạn: chuẩn bị, nhận bàn 
 
 ## 6. Hoàn thiện phần báo cáo và tích hợp
 
-- [ ] T031 Bổ sung kết quả huấn luyện thực tế vào mục 4.1.
-  **Phụ thuộc:** T023; phần hình phụ thuộc T030.
+- [x] T031 Bổ sung kết quả huấn luyện thực tế vào mục 4.1.
+  **Nguồn:** manifest T023, metrics.csv và summary.json của hai run chính thức.
   **Đầu ra:** mỗi model có cấu hình thực chạy, số epoch, best epoch, diễn biến train/validation và nhận xét có căn cứ; hình có chú thích run/seed.
-  **Chờ Quy:** hình learning curves nếu chưa nhận. Phần mô tả số liệu có thể viết trước từ logs của bạn.
+  **Hoàn thành 23/11/2026:** Bảng 4.4 và Hình 4.1 đã đưa vào bản Word. ResNet18 chọn epoch 9 (96,46% validation), ConvNeXt-Tiny chọn epoch 10 (98,50% validation). Đồ thị được dựng từ log huấn luyện đã lưu và đã xem bố cục trong Word.
 
 - [ ] T032 Viết phần sử dụng mô hình ở mục 4.3 theo phạm vi nhóm đã chốt.
   **Phụ thuộc:** checkpoint nạp được ở T019/T021.
   **Đầu ra:** cách chọn kernel, nạp checkpoint, tiền xử lý ảnh, dự đoán nhãn và đọc output; nêu công cụ/notebook thực sự sử dụng.
-  **Lưu ý:** nếu mẫu yêu cầu giao diện, xác nhận phạm vi với giảng viên/nhóm trước khi lên việc xây giao diện. Không mô tả giao diện chưa tồn tại như sản phẩm đã hoàn thành.
+  **Tiến độ 24/11/2026:** Đã viết demo Streamlit và mục 4.3.1–4.3.3 trong bản Word. Đã xem bố cục và đối chiếu hai checkpoint bằng SHA-256.
+  **Chờ Phúc:** tự chạy demo theo README, thử ảnh CIFAR-10 chỉ số 456 và một ảnh tải lên, rồi lưu ảnh màn hình hoặc kết quả. T032 để mở đến khi kiểm chứng chạy thực tế.
 
 - [ ] T033 Nhận và ghép phần lý thuyết/dữ liệu vào bản báo cáo chung.
   **Chờ Khang:** nội dung Chương 1 và mục 3.1 cùng nguồn tham khảo, hình/bảng tương ứng hoặc xác nhận bản hiện có đã hoàn thiện.
@@ -200,6 +201,7 @@ Các checkbox ở đây vẫn là việc của bạn: chuẩn bị, nhận bàn 
   **Đầu ra của bạn:** số liệu trong văn bản, bảng và hình thống nhất; tách rõ kết quả CIFAR-10 của nhóm khỏi kết quả ImageNet của tài liệu tham khảo.
 
 - [ ] T035 Hoàn thiện tóm tắt và kết luận từ kết quả đã xác nhận.
+  **Tiến độ 24/11/2026:** Đã viết Kết luận và Phụ lục A–D dựa trên manifest và notebook 06. Còn phần Tóm tắt đồ án và rà soát tích hợp sau T033/T034.
   **Phụ thuộc:** T031, T033, T034.
   **Đầu ra:** vấn đề, phương pháp, kết quả chính, hạn chế và hướng phát triển; mọi con số có nguồn là run/bảng cụ thể.
   **Xong khi:** không đưa accuracy smoke vào kết luận chính và không khẳng định mô hình nào tốt hơn khi chưa có bằng chứng tương ứng.
